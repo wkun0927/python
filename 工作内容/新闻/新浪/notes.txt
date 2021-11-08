@@ -1,0 +1,4 @@
+picture.py		图片测试
+xinwen_test1.py		主要爬虫内容
+xinwen_test2.py		测试
+text.txt		链接和图片输出样例

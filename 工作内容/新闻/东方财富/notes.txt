@@ -1,0 +1,3 @@
+picture.py	爬取新闻中图片的测试
+xw_test1.py	爬取正文代码
+xw_test2.py	测试

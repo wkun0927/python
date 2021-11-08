@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LeetcodeEditor">
+    <option name="projectConfig">
+      <map>
+        <entry key="E:/temp/leetcode/editor/cn/[13]罗马数字转整数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="E:/temp/leetcode/editor/cn/doc/content/[13]罗马数字转整数.md" />
+              <option name="path" value="E:/temp/leetcode/editor/cn/[13]罗马数字转整数.py" />
+              <option name="questionId" value="13" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="E:/temp/leetcode/editor/cn/[1]两数之和.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="E:/temp/leetcode/editor/cn/doc/content/[1]两数之和.md" />
+              <option name="path" value="E:/temp/leetcode/editor/cn/[1]两数之和.py" />
+              <option name="questionId" value="1" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="E:/temp/leetcode/editor/cn/[2]两数相加.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="E:/temp/leetcode/editor/cn/doc/content/[2]两数相加.md" />
+              <option name="path" value="E:/temp/leetcode/editor/cn/[2]两数相加.py" />
+              <option name="questionId" value="2" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="E:/temp/leetcode/editor/cn/[7]整数反转.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="E:/temp/leetcode/editor/cn/doc/content/[7]整数反转.md" />
+              <option name="path" value="E:/temp/leetcode/editor/cn/[7]整数反转.py" />
+              <option name="questionId" value="7" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="E:/temp/leetcode/editor/cn/[9]回文数.py">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="E:/temp/leetcode/editor/cn/doc/content/[9]回文数.md" />
+              <option name="path" value="E:/temp/leetcode/editor/cn/[9]回文数.py" />
+              <option name="questionId" value="9" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

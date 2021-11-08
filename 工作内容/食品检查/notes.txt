@@ -1,0 +1,12 @@
+https://spcjsac.gsxt.gov.cn/index.html
+
+食品安全抽检公布结果查询系统
+
+
+test1是查询合格产品
+
+test2是查询不合格产品
+
+查询不同公司需要改不同公司的名字
+
+两个大同小异

@@ -1,0 +1,14 @@
+东方财富上边的公司研报
+
+需要每个公司对应的股票代码
+
+test1.py
+
+#'stock_list', '600549'  修改这个股票代码即可
+
+只爬标题和url
+
+
+同花顺搜索页		http://search.10jqka.com.cn/search?tid=info&qs=box_ths&w=宁德时代
+
+同花顺的研报需要登录，看情况可以搞一下
