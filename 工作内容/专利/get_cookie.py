@@ -143,8 +143,8 @@ def main():
     info['http://123.233.113.66:8060/'] = List
     with open('./data/cookie.json', 'w') as s:
         json.dump(info, s)
-    with open('./data/总网站.json', 'w') as f:
-        f.write(userinfo, f)
+    with open('./data/总网站.json', 'w') as j:
+        f.write(userinfo, j)
 
 
 if __name__ == '__main__':
