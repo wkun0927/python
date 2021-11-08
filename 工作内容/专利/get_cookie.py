@@ -119,6 +119,7 @@ def main():
             driver.find_element(By.XPATH, '//*[@id="loginForm"]/div[5]/a').click()  # 点击登陆
             time.sleep(5)
             try:
+                # 是否有输入错误，有则重新开始，无则跳过。
                 driver.find_element(By.XPATH, '//*[@i="button"]').click()
                 driver.find_element(By.XPATH, '//*[@id="j_username"]').clear()
                 driver.find_element(By.XPATH, '//*[@id="j_password_show"]').clear()
@@ -143,6 +144,7 @@ def main():
     info['http://123.233.113.66:8060/'] = List
     with open('./data/cookie.json', 'w') as s:
         json.dump(info, s)
+
     with open('./data/总网站.json', 'w') as j:
         f.write(userinfo, j)
 
