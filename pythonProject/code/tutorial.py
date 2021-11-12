@@ -3,10 +3,15 @@
 # @Date: 2021-11-05 15:37:30
 # @Descripttion:
 from datetime import datetime, timedelta
+from textwrap import dedent
 
+# The DAG object; we'll need this to instantiate a DAG
 from airflow import DAG
+# Operators; we need this to operate!
 from airflow.operators.bash import BashOperator
 
+# These args will get passed on to each operator
+# You can override them on a per-task basis during operator initialization
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -29,34 +34,58 @@ default_args = {
     # 'sla_miss_callback': yet_another_function,
     # 'trigger_rule': 'all_success'
 }
+with DAG(
+    'tutorial',
+    default_args=default_args,
+    description='A simple tutorial DAG',
+    schedule_interval=timedelta(days=1),
+    start_date=datetime(2021, 1, 1),
+    catchup=False,
+    tags=['example'],
+) as dag:
 
-dag = DAG('tutorial', default_args=default_args, schedule_interval=timedelta(days=1))
+    # t1, t2 and t3 are examples of tasks created by instantiating operators
+    t1 = BashOperator(
+        task_id='print_date',
+        bash_command='date',
+    )
 
-# t1、t2 和 t3 是通过实例化 Operators 创建的任务示例
-t1 = BashOperator(
-    task_id='print_date',
-    bash_command='date',
-    dag=dag)
+    t2 = BashOperator(
+        task_id='sleep',
+        depends_on_past=False,
+        bash_command='sleep 5',
+        retries=3,
+    )
+    t1.doc_md = dedent(
+        """\
+    #### Task Documentation
+    You can document your task using the attributes `doc_md` (markdown),
+    `doc` (plain text), `doc_rst`, `doc_json`, `doc_yaml` which gets
+    rendered in the UI's Task Instance Details page.
+    ![img](http://montcs.bloomu.edu/~bobmon/Semesters/2012-01/491/import%20soul.png)
 
-t2 = BashOperator(
-    task_id='sleep',
-    bash_command='sleep 5',
-    retries=3,
-    dag=dag)
+    """
+    )
 
-templated_command = """
-    { % for i in range(5) %}
+    dag.doc_md = __doc__  # providing that you have a docstring at the beginning of the DAG
+    dag.doc_md = """
+    This is a documentation placed anywhere
+    """  # otherwise, type it like this
+    templated_command = dedent(
+        """
+    {% for i in range(5) %}
         echo "{{ ds }}"
         echo "{{ macros.ds_add(ds, 7)}}"
         echo "{{ params.my_param }}"
-    { % end for %}
-"""
+    {% endfor %}
+    """
+    )
 
-t3 = BashOperator(
-    task_id='templated',
-    bash_command=templated_command,
-    params={'my_param': 'Parameter I passed in'},
-    dag=dag)
+    t3 = BashOperator(
+        task_id='templated',
+        depends_on_past=False,
+        bash_command=templated_command,
+        params={'my_param': 'Parameter I passed in'},
+    )
 
-t2.set_upstream(t1)
-t3.set_upstream(t1)
+    t1 >> [t2, t3]

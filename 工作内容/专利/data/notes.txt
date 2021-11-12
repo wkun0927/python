@@ -1,28 +1,28 @@
-�й�ר�� ר��֮��  ��Ҫ��¼
+中国专利 专利之星  需要登录
 
-��ҳ               https://cprs.patentstar.com.cn/
-��¼ҳ             https://cprs.patentstar.com.cn/Account/LoginOut
-
-
-��С��Χ��ѯ��ʽ��
-	@��Ϊ�������޹�˾   F XX (@��Ϊ�������޹�˾/PA)
-	����+��Ч        ((@��Ϊ�������޹�˾/PA))*(1/PT+8/PT)*(1/LG)
-	����+����        ((@��Ϊ�������޹�˾/PA))*(1/PT+8/PT)*(3/LG)
-	����+ʧЧ        ((@��Ϊ�������޹�˾/PA))*(1/PT+8/PT)*(2/LG)
-	ʵ������+��Ч     ((@��Ϊ�������޹�˾/PA))*(2/PT+9/PT)*(1/LG)
-	ʵ������+����     ((@��Ϊ�������޹�˾/PA))*(2/PT+9/PT)*(3/LG)
-	ʵ������+ʧЧ     ((@��Ϊ�������޹�˾/PA))*(2/PT+9/PT)*(2/LG)
-	���+��Ч        ((@��Ϊ�������޹�˾/PA))*(3/PT)*(1/LG)
-	���+����        ((@��Ϊ�������޹�˾/PA))*(3/PT)*(3/LG)
-	���+ʧЧ        ((@��Ϊ�������޹�˾/PA))*(3/PT)*(2/LG)
+首页               https://cprs.patentstar.com.cn/
+登录页             https://cprs.patentstar.com.cn/Account/LoginOut
 
 
-SearchByQuery  д��cookie���Ǹ��ļ�
-	ASP.NET_SessionId	û���ֹ���
-	CNZZDATA1275790483  '896244566-1626657114-%7C1626667923'       ʱ�����Ч�ڿ���Ϊ��Сʱ
+缩小范围查询方式：
+	@华为技术有限公司   F XX (@华为技术有限公司/PA)
+	发明+有效        ((@华为技术有限公司/PA))*(1/PT+8/PT)*(1/LG)
+	发明+审中        ((@华为技术有限公司/PA))*(1/PT+8/PT)*(3/LG)
+	发明+失效        ((@华为技术有限公司/PA))*(1/PT+8/PT)*(2/LG)
+	实用新型+有效     ((@华为技术有限公司/PA))*(2/PT+9/PT)*(1/LG)
+	实用新型+审中     ((@华为技术有限公司/PA))*(2/PT+9/PT)*(3/LG)
+	实用新型+失效     ((@华为技术有限公司/PA))*(2/PT+9/PT)*(2/LG)
+	外观+有效        ((@华为技术有限公司/PA))*(3/PT)*(1/LG)
+	外观+审中        ((@华为技术有限公司/PA))*(3/PT)*(3/LG)
+	外观+失效        ((@华为技术有限公司/PA))*(3/PT)*(2/LG)
 
-1.html  ����ܺ��д���cookie����Ϣ
-test.py		requests������Ҫ�õ�����ת��
-test1.py����test3.py		��ͬʱ���µ�requests����
-wtest1.py	ģ���������ȡר����Ϣ
-wtest2.py 	����ҳ
+
+SearchByQuery  写有cookie的那个文件
+	ASP.NET_SessionId	没发现规律
+	CNZZDATA1275790483  '896244566-1626657114-%7C1626667923'       时间戳有效期可能为半小时
+
+1.html  最可能含有传递cookie的信息
+test.py		requests访问需要用到汉字转码
+test1.py——test3.py		不同时间下的requests请求
+wtest1.py	模拟浏览器爬取专利信息
+wtest2.py 	测试页

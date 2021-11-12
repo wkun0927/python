@@ -29,7 +29,7 @@ def getDriver():
     options.add_argument("--disable-gpu")
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_argument("--disable-blink-features=AutomationControlled")
-    # options.add_argument('--headless')  # 无界面形式
+    options.add_argument('--headless')  # 无界面形式
     options.add_argument('--no-sandbox')  # 取消沙盒模式
     options.add_argument('--disable-setuid-sandbox')
     # options.add_experimental_option('useAutomationExtension', False)
@@ -41,7 +41,7 @@ def getDriver():
     options.add_argument('--mute-audio')
     # options.add_argument('--proxy-server={}'.format(get_proxies()))
     browser = webdriver.Chrome(options=options)
-    browser.maximize_window()
+    browser.set_window_size(1920, 1080)
     browser.execute_cdp_cmd("Network.enable", {})
     browser.execute_cdp_cmd("Network.setExtraHTTPHeaders", {"headers": {"User-Agent": "browserClientA"}})
     browser.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {"source": """
@@ -80,9 +80,11 @@ def recognize_text(image):
 def main():
     List = []
     info = dict()
+    # change = dict()
     url = 'http://123.233.113.66:8060//pubsearch/portal/uilogin-forwardLogin.shtml'
-    with open('./data/总网站.json') as f:
+    with open('./data/cookie2.json') as f:
         userinfo = json.load(f)
+        change = userinfo
 
     for username in userinfo.keys():
         password = userinfo[username]
@@ -126,15 +128,15 @@ def main():
                 driver.find_element(By.XPATH, '//*[@id="codePic"]').click()
                 time.sleep(2)
                 continue
-            except Exception as e:
-                print(e)
+            except Exception:
                 break
         try:
-            info = driver.find_element(By.XPATH, '//div/div/div/div[1]/div/p/span')
-            if info == '您当前访问的用户名已被屏蔽，请联系管理员。':
-                del userinfo[username]
+            pingbi = driver.find_element(By.XPATH, '//div/div/div/div[1]/div/p/span').get_attribute('textContent')
+            if pingbi == '您当前访问的用户名已被屏蔽，请联系管理员。':
+                del change[username]
                 continue
         except Exception:
+            # change[username] = userinfo[username]
             pass
         cookies = driver.get_cookies()
         JSESSIONID = cookies[-1]['value']
@@ -145,8 +147,9 @@ def main():
     with open('./data/cookie.json', 'w') as s:
         json.dump(info, s)
 
-    with open('./data/总网站.json', 'w') as j:
-        f.write(userinfo, j)
+    json_data = json.dumps(change)
+    with open('./data/cookie2.json', 'w') as f:
+        f.write(json_data)
 
 
 if __name__ == '__main__':

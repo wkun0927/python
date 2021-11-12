@@ -9,7 +9,6 @@ import re
 import string
 import time
 
-import pysnooper
 import requests
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
@@ -25,7 +24,7 @@ def getDriver():
     options.add_argument("--disable-gpu")
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_argument('--headless')  # 无界面形式
+    # options.add_argument('--headless')  # 无界面形式
     options.add_argument('--no-sandbox')  # 取消沙盒模式
     options.add_argument('--disable-setuid-sandbox')
     # options.add_experimental_option('useAutomationExtension', False)
@@ -89,7 +88,6 @@ def create_phone():
     return "1{}{}{}".format(second, third, suffix)
 
 
-@pysnooper.snoop('./Log/register.log')
 def main():
     desired_capabilities = DesiredCapabilities.CHROME
     desired_capabilities["pageLoadStrategy"] = "none"
@@ -102,14 +100,14 @@ def main():
     driver = getDriver()
     driver.get(url)
     WebDriverWait(driver, 15).until(lambda x: x.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]'))
-    driver.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]').click()
-    min_num = 40
-    max_num = 60
-    while min_num < max_num:
+    driver.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]').click()  # 同意
+    min_num = 1
+    max_num = 100
+    while min_num <= max_num:
         driver.get(url)
         try:
             time.sleep(5)
-            email = 'nuhdi' + str(min_num) + '@snapmail.cc'  # 邮箱
+            email = 'berujo' + str(min_num) + '@snapmail.cc'  # 邮箱
             # email = 'hanne@snapmail.cc'
             username_n = random.randint(4, 19)
             password_n = random.randint(12, 19)
