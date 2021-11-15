@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # @Author: 王琨
 # @Date: 2021-10-20 13:43:29
@@ -82,7 +83,7 @@ def main():
     info = dict()
     # change = dict()
     url = 'http://123.233.113.66:8060//pubsearch/portal/uilogin-forwardLogin.shtml'
-    with open('./data/cookie2.json') as f:
+    with open('./data/userinfo2.json') as f:
         userinfo = json.load(f)
         change = userinfo
 
@@ -143,12 +144,12 @@ def main():
         List.append(JSESSIONID)
         time.sleep(1)
         driver.quit()
-    info['http://123.233.113.66:8060/'] = List
+    info['JSESSIONID'] = List
     with open('./data/cookie.json', 'w') as s:
         json.dump(info, s)
 
     json_data = json.dumps(change)
-    with open('./data/cookie2.json', 'w') as f:
+    with open('./data/userinfo2.json', 'w') as f:
         f.write(json_data)
 
 
