@@ -5,20 +5,15 @@
 # @Descripttion:
 
 import json
-import random
 import re
-import string
 import time
 
 import cv2 as cv
-import muggle_ocr
-import pysnooper
 import pytesseract
-import requests
+import redis
 from PIL import Image
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from user_agent import generate_user_agent
@@ -79,13 +74,18 @@ def recognize_text(image):
 
 
 def main():
-    List = []
+    cookie = dict()
     info = dict()
     # change = dict()
     url = 'http://123.233.113.66:8060//pubsearch/portal/uilogin-forwardLogin.shtml'
-    with open('./data/userinfo2.json') as f:
-        userinfo = json.load(f)
-        change = userinfo
+    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, password='2726kerwin', db=0)
+    r = redis.Redis(connection_pool=pool)
+    pairs = r.hgetall('account_group2')
+    userinfo = dict()
+    for key, value in pairs.items():
+        key = str(key, encoding="utf-8")
+        value = str(value, encoding="utf-8")
+        userinfo[key] = value
 
     for username in userinfo.keys():
         password = userinfo[username]
@@ -112,45 +112,59 @@ def main():
             im = Image.open('./img/full.png')
             im = im.crop((left, top, right, bottom))
             im.save('./img/cut.png')
-            # with open('./cut.png', 'rb') as f:
-            #     image = f.read()
-            # sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
-            # text = sdk.predict(image_bytes=image)
             src = cv.imread(r'./img/cut.png')
             text = recognize_text(src)
-            driver.find_element(By.XPATH, '//*[@id="j_validation_code"]').send_keys(text)  # 输入密码
+            driver.find_element(By.XPATH, '//*[@id="j_validation_code"]').send_keys(text)  # 输入验证码
             driver.find_element(By.XPATH, '//*[@id="loginForm"]/div[5]/a').click()  # 点击登陆
-            time.sleep(5)
+            time.sleep(1)
             try:
                 # 是否有输入错误，有则重新开始，无则跳过。
-                driver.find_element(By.XPATH, '//*[@i="button"]').click()
-                driver.find_element(By.XPATH, '//*[@id="j_username"]').clear()
-                driver.find_element(By.XPATH, '//*[@id="j_password_show"]').clear()
-                driver.find_element(By.XPATH, '//*[@id="codePic"]').click()
-                time.sleep(2)
-                continue
-            except Exception:
+                mes = driver.find_element(By.XPATH, '//*[@i="content"]').get_attribute('textContent')
+                if mes == '验证码错误！Verification Code Error!':
+                    driver.find_element(By.XPATH, '//*[@type="button"]').click()
+                    driver.find_element(By.XPATH, '//*[@id="j_username"]').clear()
+                    driver.find_element(By.XPATH, '//*[@id="j_password_show"]').clear()
+                    driver.find_element(By.XPATH, '//*[@id="j_validation_code"]').clear()
+                    driver.find_element(By.XPATH, '//*[@id="codePic"]').click()
+                    continue
+                elif mes == '登录失败次数超过6次，帐号锁定，30分钟内不能登录':
+                    n = 1
+                    break
+                elif mes == '用户名或密码错误！ Username or password error!':
+                    n = 2
+                    break
+            except NoSuchElementException:
+                n = 0
                 break
+            except Exception as e:
+                n = 0
+                print(e)
+                break
+
+        if n == 1:
+            continue
+        elif n == 2:
+            r.hdel('account_group1', username)
+            driver.quit()
+            continue
+        time.sleep(5)
         try:
             pingbi = driver.find_element(By.XPATH, '//div/div/div/div[1]/div/p/span').get_attribute('textContent')
             if pingbi == '您当前访问的用户名已被屏蔽，请联系管理员。':
-                del change[username]
+                r.hdel('account_group1', username)
                 continue
         except Exception:
-            # change[username] = userinfo[username]
             pass
         cookies = driver.get_cookies()
         JSESSIONID = cookies[-1]['value']
-        List.append(JSESSIONID)
+        cookie['username'] = JSESSIONID
         time.sleep(1)
         driver.quit()
-    info['JSESSIONID'] = List
+        r.lpush('cookie_group2', JSESSIONID)
+    info['JSESSIONID'] = cookie
+    # r.hset('cookie_group1', mapping=cookie)
     with open('./data/cookie.json', 'w') as s:
         json.dump(info, s)
-
-    json_data = json.dumps(change)
-    with open('./data/userinfo2.json', 'w') as f:
-        f.write(json_data)
 
 
 if __name__ == '__main__':

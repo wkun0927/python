@@ -3,21 +3,14 @@
 # @Date: 2021-11-08 11:12:06
 # @Descripttion:
 
-import json
-import random
+
 import re
-import string
 import time
 
 import cv2 as cv
-import muggle_ocr
-import pysnooper
 import pytesseract
-import requests
 from PIL import Image
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver import DesiredCapabilities
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from user_agent import generate_user_agent
@@ -80,7 +73,7 @@ def main():
     driver = getDriver()
     driver.get(url)
     WebDriverWait(driver, 10).until(lambda x: x.find_element(By.XPATH, '//*[@id="j_username"]'))
-    for i in range(100):
+    for i in range(20):
         # 截图识别验证码
         img = driver.find_element(By.XPATH, '//*[@id="codePic"]')
         driver.save_screenshot('./img/full.png')
@@ -91,10 +84,6 @@ def main():
         im = Image.open('./img/full.png')
         im = im.crop((left, top, right, bottom))
         im.save('./img/' + str(i) + '.png')
-        # with open('./cut.png', 'rb') as f:
-        #     image = f.read()
-        # sdk = muggle_ocr.SDK(model_type=muggle_ocr.ModelType.Captcha)
-        # text = sdk.predict(image_bytes=image)
         driver.find_element(By.XPATH, '//*[@id="codePic"]').click()
         time.sleep(1)
 
