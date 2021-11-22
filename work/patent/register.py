@@ -25,7 +25,7 @@ def getDriver():
     options.add_argument("--disable-gpu")
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_argument('--headless')  # 无界面形式
+    # options.add_argument('--headless')  # 无界面形式
     options.add_argument('--no-sandbox')  # 取消沙盒模式
     options.add_argument('--disable-setuid-sandbox')
     # options.add_experimental_option('useAutomationExtension', False)
@@ -37,7 +37,7 @@ def getDriver():
     options.add_argument('--mute-audio')
     # options.add_argument('--proxy-server={}'.format(get_proxies()))
     browser = webdriver.Chrome(options=options)
-    browser.maximize_window()
+    browser.set_window_size(1920, 1080)
     browser.execute_cdp_cmd("Network.enable", {})
     browser.execute_cdp_cmd("Network.setExtraHTTPHeaders", {"headers": {"User-Agent": "browserClientA"}})
     browser.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {"source": """
@@ -94,7 +94,7 @@ def main():
     name_a = string.ascii_lowercase
     name_n = string.digits
     name_t = '!@~`*$%^&'
-    r = redis.Redis(host='127.0.0.1', port=6379, password='2726kerwin', db=0)
+    r = redis.Redis(host='127.0.0.1', port=6379, db=0)
     driver = getDriver()
     driver.get(url)
     WebDriverWait(driver, 15).until(lambda x: x.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]'))

@@ -25,7 +25,7 @@ def getDriver():
     options.add_argument("--disable-gpu")
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_argument("--disable-blink-features=AutomationControlled")
-    options.add_argument('--headless')  # 无界面形式
+    # options.add_argument('--headless')  # 无界面形式
     options.add_argument('--no-sandbox')  # 取消沙盒模式
     options.add_argument('--disable-setuid-sandbox')
     # options.add_experimental_option('useAutomationExtension', False)
@@ -78,7 +78,7 @@ def main():
     info = dict()
     # change = dict()
     url = 'http://123.233.113.66:8060//pubsearch/portal/uilogin-forwardLogin.shtml'
-    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, password='2726kerwin', db=0)
+    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
     r = redis.Redis(connection_pool=pool)
     pairs = r.hgetall('account_group2')
     userinfo = dict()
