@@ -9,11 +9,5 @@ import json
 import redis
 import requests
 
-
-def get_proxies():
-    ip_url = "http://192.168.10.25:5000/w/ip/random"
-    proxies = requests.get(ip_url, headers={'User-Agent': 'Mozilla/5.0'}).json()
-    return proxies
-
-a = get_proxies()
-print(a)
+req = requests.get('http://mail.ewomail.cn:8000')
+print(req.text)

@@ -25,7 +25,7 @@ def getDriver():
     options.add_argument("--disable-gpu")
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_argument("--disable-blink-features=AutomationControlled")
-    # options.add_argument('--headless')  # 无界面形式
+    options.add_argument('--headless')  # 无界面形式
     options.add_argument('--no-sandbox')  # 取消沙盒模式
     options.add_argument('--disable-setuid-sandbox')
     # options.add_experimental_option('useAutomationExtension', False)
@@ -89,18 +89,23 @@ def main():
     desired_capabilities = DesiredCapabilities.CHROME
     desired_capabilities["pageLoadStrategy"] = "none"
     userinfo = dict()
-    url = 'http://123.233.113.66:8060/'
+    email_num_path = '/home/wkun/Dev/python/work/patent/data/email_num.json'
+    # url = 'http://123.233.113.66:8060/'
+    url = 'http://60.166.52.165:8030/'
     name_A = string.ascii_uppercase
     name_a = string.ascii_lowercase
     name_n = string.digits
     name_t = '!@~`*$%^&'
     r = redis.Redis(host='127.0.0.1', port=6379, db=0)
+    number = r.get('index')
+    account_group_names = r.hkeys('account_group_names')
+    account_group_name = str(account_group_names[number], encoding='utf-8')
     driver = getDriver()
     driver.get(url)
     WebDriverWait(driver, 15).until(lambda x: x.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]'))
     driver.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]').click()  # 同意
     for i in range(1, 3):
-        with open('./data/email_num.json') as x:  # 注册邮箱序号
+        with open(email_num_path) as x:  # 注册邮箱序号
             num = json.load(x)
         min_num = num[0]
         max_num = num[1]
@@ -165,7 +170,7 @@ def main():
                     continue
 
                 driver.find_element(By.XPATH, '//*[@id="mobile"]/label/div[1]/input').send_keys(create_phone())  # 输入随机手机号
-                driver.find_element(By.XPATH, '//*[@id="higherArea"]/option[' + str(random.randint(2, 35)) + ']').click()  # 随机点击省份
+                # driver.find_element(By.XPATH, '//*[@id="higherArea"]/option[' + str(random.randint(2, 35)) + ']').click()  # 随机点击省份
                 driver.implicitly_wait(1)
                 count = 2
                 sel = []
@@ -193,12 +198,13 @@ def main():
                 userinfo[username] = password
             except Exception:
                 continue
-        r.hset('account_group' + str(i), mapping=userinfo)
+        r.hset(account_group_name, mapping=userinfo)
+        userinfo.clear()
         # json_data = json.dumps(userinfo)
         # with open('./data/总网站.json', 'a') as f:
         #     f.write(json_data)
         num = [min_num, max_num + 10]
-        with open('./data/email_num.json', 'w') as s:
+        with open(email_num_path, 'w') as s:
             json.dump(num, s)
 
 

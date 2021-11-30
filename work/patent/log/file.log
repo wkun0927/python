@@ -1,0 +1,433 @@
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+10:47:56.028893 call       336 def main():
+10:47:56.029479 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+10:47:56.029699 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+10:47:56.030360 line       339     write_account_group_name(r)
+10:47:56.034434 line       340     keys = r.hkeys('account_group_names')
+New var:....... keys = [b'account_group1', b'account_group2', b'account_group3', b'account_group4', b'account_group5']
+10:47:56.034703 line       341     values = r.hvals('account_group_names')
+New var:....... values = [b'cookie_group1', b'cookie_group2', b'cookie_group3', b'cookie_group4', b'cookie_group5']
+10:47:56.035109 line       342     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+10:47:56.035849 line       343     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+10:47:56.036088 line       344         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+10:47:56.036343 line       345         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+10:47:56.036637 line       346         register(r, account)
+10:48:07.224641 exception  346         register(r, account)
+Exception:..... redis.exceptions.DataError: 'hset' with no key value pairs
+Call ended by exception
+Elapsed time: 00:00:11.197109
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:04:19.722385 call       336 def main():
+11:04:19.722620 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:04:19.722766 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:04:19.723205 line       339     write_account_group_name(r)
+11:04:19.727652 line       340     keys = r.hkeys('account_group_names')
+New var:....... keys = [b'account_group1', b'account_group2', b'account_group3', b'account_group4', b'account_group5']
+11:04:19.728051 line       341     values = r.hvals('account_group_names')
+New var:....... values = [b'cookie_group1', b'cookie_group2', b'cookie_group3', b'cookie_group4', b'cookie_group5']
+11:04:19.728229 line       342     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:04:19.728689 line       343     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+11:04:19.728912 line       344         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+11:04:19.729151 line       345         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+11:04:19.729349 line       346         register(r, account)
+11:04:21.764036 exception  346         register(r, account)
+Exception:..... KeyboardInterrupt
+Call ended by exception
+Elapsed time: 00:00:02.042321
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:05:44.129160 call       336 def main():
+11:05:44.129398 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:05:44.129515 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:05:44.129953 line       339     write_account_group_name(r)
+11:05:44.133765 line       340     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:05:44.134286 line       341     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+11:05:44.134530 line       342         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+11:05:44.134735 line       343         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+11:05:44.134818 line       344         register(r, account)
+11:05:55.386007 exception  344         register(r, account)
+Exception:..... redis.exceptions.DataError: 'hset' with no key value pairs
+Call ended by exception
+Elapsed time: 00:00:11.257946
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:11:13.302964 call       336 def main():
+11:11:13.303224 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:11:13.303344 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:11:13.303888 line       339     write_account_group_name(r)
+11:11:13.306656 line       340     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:11:13.307104 line       341     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+11:11:13.307328 line       342         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+11:11:13.307523 line       343         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+11:11:13.307604 line       344         register(r, account)
+11:11:28.338556 exception  344         register(r, account)
+Exception:..... redis.exceptions.DataError: 'hset' with no key value pairs
+Call ended by exception
+Elapsed time: 00:00:15.036398
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:40:41.682735 call       340 def main():
+11:40:41.683797 line       341     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:40:41.684080 line       342     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:40:41.684673 line       343     write_account_group_name(r)
+11:40:41.689145 line       344     pairs = r.hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:40:41.689982 line       345     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+11:40:41.690187 line       346         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+11:40:41.690337 line       347         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+11:40:41.690453 line       348         register(account)
+11:40:52.847506 exception  348         register(account)
+Exception:..... redis.exceptions.DataError: 'hset' with no key value pairs
+Call ended by exception
+Elapsed time: 00:00:11.166092
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:49:03.193830 call       336 def main():
+11:49:03.194207 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:49:03.194397 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:49:03.194923 line       339     write_account_group_name(r)
+11:49:03.199141 line       340     pairs = r.hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:49:03.199635 line       341     r.hset()
+11:49:03.199931 exception  341     r.hset()
+Exception:..... TypeError: hset() missing 1 required positional argument: 'name'
+Call ended by exception
+Elapsed time: 00:00:00.006547
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:50:06.905160 call       336 def main():
+11:50:06.905496 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:50:06.905641 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:50:06.906059 line       339     write_account_group_name(r)
+11:50:06.909133 line       340     pairs = r.hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:50:06.909595 line       341     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+11:50:06.909901 line       342         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+11:50:06.910292 line       343         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+11:50:06.910879 line       344         register(r, account)
+11:50:26.039460 line       345         get_cookie(r, cookie_name, account)
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:54:37.318099 call       336 def main():
+11:54:37.318424 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:54:37.318477 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:54:37.318878 line       339     write_account_group_name(r)
+11:54:37.321898 line       340     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:54:37.322391 line       341     r.hset()
+11:54:37.322592 exception  341     r.hset()
+Exception:..... TypeError: hset() missing 1 required positional argument: 'name'
+Call ended by exception
+Elapsed time: 00:00:00.004902
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:54:47.689872 call       336 def main():
+11:54:47.690175 line       337     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:54:47.690360 line       338     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:54:47.690964 line       339     write_account_group_name(r)
+11:54:47.695069 line       340     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:54:47.695752 line       341     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+11:54:47.696084 line       342         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+11:54:47.696563 line       343         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+11:54:47.696940 line       344         register(r, account)
+11:54:58.930214 exception  344         register(r, account)
+Exception:..... redis.exceptions.DataError: 'hset' with no key value pairs
+Call ended by exception
+Elapsed time: 00:00:11.241023
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+11:56:19.858514 call       337 def main():
+11:56:19.858919 line       338     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+11:56:19.859125 line       339     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+11:56:19.859683 line       340     write_account_group_name(r)
+11:56:19.863915 line       341     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+11:56:19.864414 line       342     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+11:56:19.864722 line       343         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+11:56:19.865098 line       344         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+11:56:19.865384 line       345         register(r, account)
+11:56:32.332587 line       346         get_cookie(r, cookie_name, account)
+11:57:29.529884 exception  346         get_cookie(r, cookie_name, account)
+Exception:..... selenium.common.exceptions.WebDriverException: M...20ec83aeed <unknown>
+#19 0x7fe7bcb2a259 <unknown>
+Call ended by exception
+Elapsed time: 00:01:09.672070
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+19:08:11.454910 call       337 def main():
+19:08:11.455236 line       338     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+19:08:11.455353 line       339     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+19:08:11.455835 line       340     write_account_group_name(r)
+19:08:11.458439 line       341     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+19:08:11.459213 line       342     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+19:08:11.459625 line       343         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+19:08:11.459960 line       344         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+19:08:11.460216 line       345         register(r, account)
+19:08:19.768759 exception  345         register(r, account)
+Exception:..... selenium.common.exceptions.WebDriverException: M...fa5260eeed <unknown>
+#19 0x7f5ef85e9259 <unknown>
+Call ended by exception
+Elapsed time: 00:00:08.315397
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+19:09:18.044307 call       337 def main():
+19:09:18.044527 line       338     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+19:09:18.044659 line       339     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+19:09:18.044973 line       340     write_account_group_name(r)
+19:09:18.049192 line       341     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+19:09:18.049834 line       342     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+19:09:18.050067 line       343         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+19:09:18.050293 line       344         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+19:09:18.050421 line       345         register(r, account)
+19:09:30.535268 line       346         get_cookie(r, cookie_name, account)
+19:09:52.485464 exception  346         get_cookie(r, cookie_name, account)
+Exception:..... selenium.common.exceptions.WebDriverException: M...1ff7ad1eed <unknown>
+#19 0x7f8ccc8a0259 <unknown>
+Call ended by exception
+Elapsed time: 00:00:34.441859
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+19:11:44.985999 call       338 def main():
+19:11:44.986248 line       339     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+19:11:44.986353 line       340     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+19:11:44.986763 line       341     write_account_group_name(r)
+19:11:44.989141 line       342     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+19:11:44.989693 line       343     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+19:11:44.989901 line       344         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+19:11:44.990095 line       345         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+19:11:44.990281 line       346         register(r, account)
+19:15:50.874859 line       347         get_cookie(r, cookie_name, account)
+19:17:01.468305 exception  347         get_cookie(r, cookie_name, account)
+Exception:..... selenium.common.exceptions.WebDriverException: M...6fc6feceed <unknown>
+#19 0x7f0422df5259 <unknown>
+Call ended by exception
+Elapsed time: 00:05:16.483086
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+19:47:16.082160 call       338 def main():
+19:47:16.082624 line       339     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+19:47:16.082833 line       340     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+19:47:16.083456 line       341     write_account_group_name(r)
+19:47:16.087407 line       342     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+19:47:16.087886 line       343     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+19:47:16.088076 line       344         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+19:47:16.088325 line       345         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+19:47:16.088547 line       346         register(r, account)
+19:51:03.074066 line       347         get_cookie(r, cookie_name, account)
+20:01:24.591506 line       343     for key, value in pairs.items():
+Modified var:.. key = b'account_group2'
+Modified var:.. value = b'cookie_group2'
+20:01:24.592015 line       344         account = str(key, encoding="utf-8")
+Modified var:.. account = 'account_group2'
+20:01:24.592411 line       345         cookie_name = str(value, encoding="utf-8")
+Modified var:.. cookie_name = 'cookie_group2'
+20:01:24.592642 line       346         register(r, account)
+20:09:10.350960 line       347         get_cookie(r, cookie_name, account)
+20:20:26.178633 line       343     for key, value in pairs.items():
+Modified var:.. key = b'account_group3'
+Modified var:.. value = b'cookie_group3'
+20:20:26.178891 line       344         account = str(key, encoding="utf-8")
+Modified var:.. account = 'account_group3'
+20:20:26.179153 line       345         cookie_name = str(value, encoding="utf-8")
+Modified var:.. cookie_name = 'cookie_group3'
+20:20:26.179359 line       346         register(r, account)
+20:56:53.189111 exception  346         register(r, account)
+Exception:..... selenium.common.exceptions.WebDriverException: M...b3b829ceed <unknown>
+#19 0x7fea1201b259 <unknown>
+Call ended by exception
+Elapsed time: 01:09:37.107769
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+09:23:24.283852 call       338 def main():
+09:23:24.284632 line       339     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+09:23:24.284763 line       340     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+09:23:24.285158 line       341     write_account_group_name(r)
+09:23:24.288236 line       342     pairs = r. hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+09:23:24.288534 line       343     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+09:23:24.288635 line       344         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+09:23:24.288736 line       345         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+09:23:24.288818 line       346         register(r, account)
+09:25:25.658439 line       347         get_cookie(r, cookie_name, account)
+09:35:52.099617 line       343     for key, value in pairs.items():
+Modified var:.. key = b'account_group2'
+Modified var:.. value = b'cookie_group2'
+09:35:52.099891 line       344         account = str(key, encoding="utf-8")
+Modified var:.. account = 'account_group2'
+09:35:52.100115 line       345         cookie_name = str(value, encoding="utf-8")
+Modified var:.. cookie_name = 'cookie_group2'
+09:35:52.100268 line       346         register(r, account)
+09:39:47.860066 line       347         get_cookie(r, cookie_name, account)
+09:53:08.839209 line       343     for key, value in pairs.items():
+Modified var:.. key = b'account_group3'
+Modified var:.. value = b'cookie_group3'
+09:53:08.839484 line       344         account = str(key, encoding="utf-8")
+Modified var:.. account = 'account_group3'
+09:53:08.839717 line       345         cookie_name = str(value, encoding="utf-8")
+Modified var:.. cookie_name = 'cookie_group3'
+09:53:08.839917 line       346         register(r, account)
+09:57:10.278834 line       347         get_cookie(r, cookie_name, account)
+10:03:00.229581 line       343     for key, value in pairs.items():
+Modified var:.. key = b'account_group4'
+Modified var:.. value = b'cookie_group4'
+10:03:00.230066 line       344         account = str(key, encoding="utf-8")
+Modified var:.. account = 'account_group4'
+10:03:00.230395 line       345         cookie_name = str(value, encoding="utf-8")
+Modified var:.. cookie_name = 'cookie_group4'
+10:03:00.230592 line       346         register(r, account)
+10:06:52.732695 line       347         get_cookie(r, cookie_name, account)
+10:12:49.274886 line       343     for key, value in pairs.items():
+Modified var:.. key = b'account_group5'
+Modified var:.. value = b'cookie_group5'
+10:12:49.275135 line       344         account = str(key, encoding="utf-8")
+Modified var:.. account = 'account_group5'
+10:12:49.275386 line       345         cookie_name = str(value, encoding="utf-8")
+Modified var:.. cookie_name = 'cookie_group5'
+10:12:49.275665 line       346         register(r, account)
+10:17:38.326501 line       347         get_cookie(r, cookie_name, account)
+10:20:26.537488 exception  347         get_cookie(r, cookie_name, account)
+Exception:..... selenium.common.exceptions.ElementClickIntercept...82aca72eed <unknown>
+#22 0x7fa45f263259 <unknown>
+Call ended by exception
+Elapsed time: 00:57:02.254420
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+16:44:20.901702 call       353 def main():
+16:44:20.902137 line       354     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+16:44:20.902195 line       355     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+16:44:20.902539 line       356     write_account_group_name(r)
+16:44:20.906403 line       357     pairs = r.hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+16:44:20.907001 line       358     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+16:44:20.907271 line       359         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+16:44:20.907625 line       360         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+16:44:20.907938 line       361         register(r, account)
+16:44:53.650671 exception  361         register(r, account)
+Exception:..... KeyboardInterrupt
+Call ended by exception
+Elapsed time: 00:00:32.751084
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+16:45:07.088409 call       354 def main():
+16:45:07.088656 line       355     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+16:45:07.088706 line       356     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+16:45:07.089137 line       357     write_account_group_name(r)
+16:45:07.092474 line       358     pairs = r.hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+16:45:07.092832 line       359     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+16:45:07.093172 line       360         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+16:45:07.093415 line       361         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+16:45:07.093635 line       362         register(r, account)
+17:00:45.994622 exception  362         register(r, account)
+Exception:..... KeyboardInterrupt
+Call ended by exception
+Elapsed time: 00:15:38.907462
+Source path:... /home/wkun/Dev/python/work/patent/write_account_group.py
+17:00:52.419969 call       360 def main():
+17:00:52.420227 line       361     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+New var:....... pool = ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>
+17:00:52.420277 line       362     r = redis.Redis(connection_pool=pool)
+New var:....... r = Redis<ConnectionPool<Connection<host=127.0.0.1,port=6379,db=0>>>
+17:00:52.420844 line       363     write_account_group_name(r)
+17:00:52.424438 line       364     pairs = r.hgetall('account_group_names')
+New var:....... pairs = {b'account_group1': b'cookie_group1', b'account_...kie_group4', b'account_group5': b'cookie_group5'}
+17:00:52.425022 line       365     for key, value in pairs.items():
+New var:....... key = b'account_group1'
+New var:....... value = b'cookie_group1'
+17:00:52.425254 line       366         account = str(key, encoding="utf-8")
+New var:....... account = 'account_group1'
+17:00:52.425500 line       367         cookie_name = str(value, encoding="utf-8")
+New var:....... cookie_name = 'cookie_group1'
+17:00:52.425759 line       368         register(r, account)
+17:22:56.431088 exception  368         register(r, account)
+Exception:..... KeyboardInterrupt
+Call ended by exception
+Elapsed time: 00:22:04.012226
