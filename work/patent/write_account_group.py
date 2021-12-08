@@ -360,7 +360,6 @@ def get_cookie(r, cookie_group_name, account_name):
     r.hset(cookie_group_name, mapping=cookie)
 
 
-@pysnooper.snoop('/home/wkun/Dev/python/work/patent/log/file.log')
 def main():
     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
     r = redis.Redis(connection_pool=pool)

@@ -99,12 +99,12 @@ def main():
     r = redis.Redis(host='127.0.0.1', port=6379, db=0)
     number = r.get('index')
     account_group_names = r.hkeys('account_group_names')
-    account_group_name = str(account_group_names[number], encoding='utf-8')
+    account_group_name = str(account_group_names[int(number)], encoding='utf-8')
     driver = getDriver()
     driver.get(url)
     WebDriverWait(driver, 15).until(lambda x: x.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]'))
     driver.find_element(By.XPATH, '//div[2]/div/div[3]/div[1]/a[1]').click()  # 同意
-    for i in range(1, 3):
+    for i in range(1, 10):
         with open(email_num_path) as x:  # 注册邮箱序号
             num = json.load(x)
         min_num = num[0]
@@ -113,7 +113,7 @@ def main():
             driver.get(url)
             try:
                 time.sleep(5)
-                email = 'berujo' + str(min_num) + '@snapmail.cc'  # 邮箱
+                email = 'delespider' + str(min_num) + '@xxxhi.cc'  # 邮箱
                 # email = 'hanne@snapmail.cc'
                 username_n = random.randint(4, 19)
                 password_n = random.randint(12, 19)

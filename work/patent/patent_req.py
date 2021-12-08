@@ -10,7 +10,7 @@ import requests
 
 
 def get_proxies():
-    ip_url = "http://152.136.208.143:5000/w/ip/random"
+    ip_url = "http://192.168.10.25:8000/ip"
     proxies = requests.get(ip_url, headers={'User-Agent': 'Mozilla/5.0'}).json()
     print(proxies['http'])
     return proxies
@@ -19,7 +19,7 @@ page_num = 1
 cookies = {
     # 'IS_LOGIN': 'true',
     # 'WEE_SID': '18B2E0ABC0373F90FC2AE1DC2CEC055B.pubsearch02',
-    'JSESSIONID': '52D9A6C41D410A5C6109C8284B15DC1F.pubsearch01',
+    'JSESSIONID': '3AE40E957028CBA92BEC5ABEFFEC27FA.pubsearch02',
     # 'avoid_declare': 'declare_pass',
     # 'Anonymity_SearchHistory_SessionId': '20D21AEEFAA4F4BD28FB7E78C61C1BC8.pubsearch02',
     # 'Anonymity_SearchHistory': '',
@@ -33,8 +33,8 @@ for i in range(page_num):
         'X-Requested-With': 'XMLHttpRequest',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36 Edg/94.0.992.38',
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'Origin': 'http://111.56.38.173',
-        'Referer': 'http://111.56.38.173/patentsearch/tableSearch-showTableSearchIndex.shtml',
+        'Origin': 'http://60.166.52.165:8030',
+        'Referer': 'http://60.166.52.165:8030/patentsearch/tableSearch-showTableSearchIndex.shtml',
         'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
     }
 
@@ -58,7 +58,7 @@ for i in range(page_num):
         'searchCondition.searchKeywords': '[\u534E][\u4E3A][\u6280][\u672F][\u6709][\u9650][\u516C][\u53F8][ ]{0,}'
     }
     try:
-        response = requests.post('http://111.56.38.173/pubsearch/patentsearch/showSearchResult-startWa.shtml', headers=headers, cookies=cookies, data=data, verify=False)
+        response = requests.post('http://60.166.52.165:8030/pubsearch/patentsearch/tableSearch-showTableSearchIndex.shtml', headers=headers, cookies=cookies, proxies=get_proxies(), data=data, verify=False)
         print(response.status_code)
         info = response.json()
         for j in range(12):

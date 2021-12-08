@@ -8,6 +8,7 @@ import csv
 import time
 
 import nest_asyncio
+import redis
 import requests
 from lxml import etree
 from pyppeteer import launch
@@ -22,16 +23,21 @@ List = []
 
 # 获取代理IP
 def get_proxies():
-    ip_url = "http://152.136.208.143:5000/w/ip/random"
-    proxies = requests.get(ip_url, headers={'User-Agent': 'Mozilla/5.0'}).json()
-    return proxies['']
+    ip_url = "http://192.168.10.25:8000/ip"
+    proxies = requests.get(ip_url, headers={
+        'User-Agent': 'Mozilla/5.0'
+    }).json()
+    print(proxies)
+    return proxies['http']
 
 
 # 主函数
 async def run():
+    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+    r = redis.Redis(connection_pool=pool)
     count = '华为技术有限公司'  # 初始申请人
-    browser = await launch(headless=False, args=['--proxy-server={}'.format('get_proxies()'), '--disable-infobars', '--no-sandbox'], userDataDir='./Temporary')
-    browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='D:/Temporary')
+    browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='/home/wkun/Temporary')
+    # browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='D:/Temporary')
     page1 = await browser.newPage()
     # await stealth(page)
     # await page.setViewport({'width': width, 'height': height})
@@ -65,15 +71,18 @@ async def run():
             text = await page3.content()
             html = etree.HTML(text)
             for i in range(1, 51):
-                item['pic_url'] = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']//input/@img')  # 商标图片信息
-                item['request_no'] = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[2]//text()')  # 申请/注册号
-                item['world_type'] = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[3]//text()')  # 国际分类
-                item['request_date'] = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[4]//text()')  # 申请日期
-                item['mark_name'] = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[5]//text()')  # 商标名称
-                item['request_name'] = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[6]//text()')  # 申请人（中文）
-                print(item)
-
-            await page3.click('#mGrid_listGrid_paginator_0 > ul > li.nextPage > a')  # 点击下一页
+                pic_url = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']//input/@img')  # 商标图片信息
+                request_no = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[2]//text()')  # 申请/注册号
+                world_type = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[3]//text()')  # 国际分类
+                request_date = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[4]//text()')  # 申请日期
+                mark_name = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[5]//text()')  # 商标名称
+                request_name = html.xpath('//tr[@class="ng-scope"][' + str(i) + ']/td[6]//text()')  # 申请人（中文）
+                item[request_no] = {'pic_url': pic_url, 'world_type': world_type, 'request_date': request_date, 'mark_name': mark_name, 'request_name': request_name}
+                r.hset('huawei', mapping=item)
+                item.clear()
+            code = await page3.click('#mGrid_listGrid_paginator_0 > ul > li.nextPage > a')  # 点击下一页
+            if code.status_code == 404:
+                break
             await asyncio.sleep(15)
 
     except Exception as e:

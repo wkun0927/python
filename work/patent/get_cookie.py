@@ -25,7 +25,7 @@ def getDriver():
     options.add_argument("--disable-gpu")
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_argument("--disable-blink-features=AutomationControlled")
-    # options.add_argument('--headless')  # 无界面形式
+    options.add_argument('--headless')  # 无界面形式
     options.add_argument('--no-sandbox')  # 取消沙盒模式
     options.add_argument('--disable-setuid-sandbox')
     # options.add_experimental_option('useAutomationExtension', False)
@@ -78,21 +78,26 @@ def main():
     img_full_path = '/home/wkun/Dev/python/work/patent/img/full.png'
     img_cut_path = '/home/wkun/Dev/python/work/patent/img/cut.png'
     url = 'http://60.166.52.165:8030/pubsearch/portal/uilogin-forwardLogin.shtml'
-    pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
+    pool = redis.ConnectionPool(host='192.168.10.25', port=6379, db=0)
     r = redis.Redis(connection_pool=pool)
-    pairs = r.hgetall('account_group2')
+    ppool = redis.ConnectionPool(host='192.168.10.25', port=6379, db=8)
+    x = redis.Redis(connection_pool=ppool)
+    account_name = 'account_snapmail'
+    pairs = r.hgetall(account_name)
     userinfo = dict()
     for key, value in pairs.items():
         key = str(key, encoding="utf-8")
         value = str(value, encoding="utf-8")
         userinfo[key] = value
-
+    i = 0
     for username in userinfo.keys():
+        if i == 10:
+            break
         password = userinfo[username]
         driver = getDriver()
-        driver.get(url)
-        WebDriverWait(driver, 10).until(lambda x: x.find_element(By.XPATH, '//*[@id="j_username"]'))
         while True:
+            driver.get(url)
+            WebDriverWait(driver, 10).until(lambda x: x.find_element(By.XPATH, '//*[@id="j_username"]'))
             name = driver.find_element(By.XPATH, '//*[@id="j_username"]')
             name.click()
             time.sleep(1)
@@ -121,11 +126,6 @@ def main():
                 # 是否有输入错误，有则重新开始，无则跳过。
                 mes = driver.find_element(By.XPATH, '//*[@i="content"]').get_attribute('textContent')
                 if mes == '验证码错误！Verification Code Error!':
-                    driver.find_element(By.XPATH, '//*[@type="button"]').click()
-                    driver.find_element(By.XPATH, '//*[@id="j_username"]').clear()
-                    driver.find_element(By.XPATH, '//*[@id="j_password_show"]').clear()
-                    driver.find_element(By.XPATH, '//*[@id="j_validation_code"]').clear()
-                    driver.find_element(By.XPATH, '//*[@id="codePic"]').click()
                     continue
                 elif mes == '登录失败次数超过6次，帐号锁定，30分钟内不能登录':
                     n = 1
@@ -144,7 +144,7 @@ def main():
         if n == 1:
             continue
         elif n == 2:
-            r.hdel('account_group1', username)
+            r.hdel(account_name, username)
             driver.quit()
             continue
         time.sleep(5)
@@ -152,15 +152,18 @@ def main():
             pingbi = driver.find_element(By.XPATH, '//div/div/div/div[1]/div/p/span').get_attribute('textContent')
             if pingbi == '您当前访问的用户名已被屏蔽，请联系管理员。':
                 r.hdel('account_group1', username)
+                x.hdel('cookies', username)
                 continue
         except Exception:
             pass
         cookies = driver.get_cookies()
         JSESSIONID = cookies[-1]['value']
-        cookie['username'] = JSESSIONID
+        cookie[username] = JSESSIONID
         time.sleep(1)
         driver.quit()
-        r.lpush('cookie_group2', JSESSIONID)
+        i += 1
+    x.hset('cookies', mapping=cookie)
+    cookie.clear()
     # info['JSESSIONID'] = cookie
     # r.hset('cookie_group1', mapping=cookie)
     # with open(cookie_path, 'w') as s:

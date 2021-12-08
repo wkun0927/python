@@ -1,23 +1,24 @@
 # -*- coding: utf-8 -*-
 # @Author              : 王琨
 # @Date                : 2021-07-21 15:59:11
-# @LastEditTime        : 2021-07-23 15:09:59
-# @LastEditors         : 王琨
+# @LastEditTime: 2021-12-06 16:24:12
+# @LastEditors: Please set LastEditors
 # @FilePath            : \pythonProject\trademark_gazette.py
 # @Description         : 商标公告
 
+import random
+import time
+
+import ipdb
+import pyautogui
+import requests
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from user_agent import generate_user_agent
-import pyautogui
-import ipdb
-import requests
-import time
-import random
 
 
 def proxy(obj):
@@ -51,7 +52,7 @@ def get_driver(obj):
     options.add_argument('--disable-bundled-ppapi-flash')
     options.add_argument('--mute-audio')
     options.add_argument('--proxy-server={}'.format(proxy(obj)))
-    browser = webdriver.Chrome(options=options, executable_path='C:/Users/18410/AppData/Local/Google/Chrome/Application/chromedriver.exe')
+    browser = webdriver.Chrome(options=options)
     browser.execute_cdp_cmd("Network.enable", {})
     browser.execute_cdp_cmd("Network.setExtraHTTPHeaders", {"headers": {"User-Agent": "browserClientA"}})
     with open('stealth.min.js') as f:
