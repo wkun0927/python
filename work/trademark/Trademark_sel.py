@@ -3,61 +3,57 @@
 # @Date: 2021-09-28 09:43:32
 # @Descripttion: 商标信息查询
 
+import random
 import time
 
 import requests
+from fake_useragent import UserAgent
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-from user_agent import generate_user_agent
 
 
 def getDriver():
     options = webdriver.ChromeOptions()
-    options.add_argument("--disable-extensions")
-    options.add_argument("--disable-gpu")
+    # prefs = {"profile.managed_default_content_settings.images": 2}
+    # options.add_experimental_option("prefs", prefs)
     options.add_experimental_option('excludeSwitches', ['enable-automation'])
     options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_argument('--ignore-certificate-errors')
+    options.add_argument("--ignore-ssl-errors")
     # options.add_argument('--headless')  # 无界面形式
-    options.add_argument('--no-sandbox')  # 取消沙盒模式
-    options.add_argument('--disable-setuid-sandbox')
-    # options.add_experimental_option('useAutomationExtension', False)
-    options.add_argument('--incognito')  # 启动进入隐身模式
-    options.add_argument('--lang=zh-CN')  # 设置语言为简体中文
-    options.add_argument(
-        '--user-agent={}'.format(generate_user_agent()))
-    options.add_argument('--hide-scrollbars')
-    options.add_argument('--disable-bundled-ppapi-flash')
-    options.add_argument('--mute-audio')
-    # options.add_argument('--proxy-server={}'.format(proxy(headers)))  # 代理IP
+    options.add_argument('--user-agent=' + UserAgent().random)
+    # options.add_argument('--proxy-server={}'.format(get_proxies()))
+    desired_capabilities = DesiredCapabilities.CHROME
+    desired_capabilities["pageLoadStrategy"] = "none"
     browser = webdriver.Chrome(options=options)
-    browser.set_window_size(1920, 1080)
-    browser.execute_cdp_cmd("Network.enable", {})
-    browser.execute_cdp_cmd("Network.setExtraHTTPHeaders", {"headers": {"User-Agent": "browserClientA"}})
-    browser.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
-        "source": """
-        Object.defineProperty(navigator, 'webdriver', {
-            get: () => false
-            })
-        """
+    with open('C:/python/work/stealth.min.js') as f:
+        js = f.read()
+    browser.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        "source": js
     })
-
+    browser.maximize_window()
     return browser
 
 
+def get_proxies():
+    ip_url = "http://192.168.10.25:8000/ip"
+    proxies = requests.get(ip_url, headers={'User-Agent': 'Mozilla/5.0'}).json()
+    proxy = proxies['https'].split('@')[-1]
+    return proxy
+
+
 def main():
-    desired_capabilities = DesiredCapabilities.CHROME
-    desired_capabilities["pageLoadStrategy"] = "none"
     url = 'http://sbj.cnipa.gov.cn/'
     driver = getDriver()
     driver.get(url=url)
-    WebDriverWait(driver, 15).until(lambda x: x.find_element(By.XPATH, '//*[@class="bscont12 bscont"]//a'))
+    WebDriverWait(driver, 30).until(lambda x: x.find_element(By.XPATH, '//*[@class="bscont12 bscont"]//a'))
     driver.find_element(By.XPATH, '//*[@class="bscont12 bscont"]//a').click()
     handles = driver.window_handles
     driver.switch_to.window(handles[-1])
-    WebDriverWait(driver, 10).until(lambda x: x.find_element(By.XPATH, '//div[2]//div[2]//tr[2]/td[1]'))
+    WebDriverWait(driver, 30).until(lambda x: x.find_element(By.XPATH, '//div[2]//div[2]//tr[2]/td[1]'))
     driver.find_element(By.XPATH, '//div[2]//div[2]//tr[2]/td[1]').click()
     time.sleep(10)
 

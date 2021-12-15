@@ -4,7 +4,6 @@
 # @Date: 2021-10-20 13:43:29
 # @Descripttion:
 
-import json
 import re
 import time
 
@@ -75,8 +74,8 @@ def recognize_text(image, img_path):
 
 def main():
     cookie = dict()
-    img_full_path = '/home/wkun/Dev/python/work/patent/img/full.png'
-    img_cut_path = '/home/wkun/Dev/python/work/patent/img/cut.png'
+    img_full_path = 'C:/python/work/patent/img/full.png'
+    img_cut_path = 'C:/python/work/patent/img/cut.png'
     url = 'http://60.166.52.165:8030/pubsearch/portal/uilogin-forwardLogin.shtml'
     pool = redis.ConnectionPool(host='192.168.10.25', port=6379, db=0)
     r = redis.Redis(connection_pool=pool)

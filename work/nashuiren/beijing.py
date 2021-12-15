@@ -4,8 +4,15 @@
 # @Descripttion: 北京一般纳税人查询 可以直接拼接URL访问
 
 import requests
-from user_agent import generate_user_agent
 from lxml import etree
+from user_agent import generate_user_agent
+
+
+def get_proxies():
+    ip_url = "http://192.168.10.25:8000/ip"
+    proxies = requests.get(ip_url, headers={'User-Agent': 'Mozilla/5.0'}).json()
+    print(proxies)
+    return proxies
 
 
 def main(identifier):
@@ -17,7 +24,7 @@ def main(identifier):
         'user-agent': generate_user_agent(),
     }
 
-    res = requests.get(url=url, headers=headers)
+    res = requests.get(url=url, headers=headers, proxies=get_proxies())
     html = etree.HTML(res.text)
     for i in range(1, 11):
         key = html.xpath('//table//tr[' + str(i) + ']/td[1]//text()')[0]

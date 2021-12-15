@@ -5,12 +5,16 @@
 
 import asyncio
 import csv
+import re
 import time
 
+import cv2 as cv
 import nest_asyncio
+import pytesseract
 import redis
 import requests
 from lxml import etree
+from PIL import Image
 from pyppeteer import launch
 from user_agent import generate_user_agent
 
@@ -31,19 +35,48 @@ def get_proxies():
     return proxies['http']
 
 
+def recognize_text(img_path):
+    # 打开文件夹中的图片
+    image = Image.open(img_path)
+    # 灰度图
+    lim = image.convert('L')
+    # 灰度阈值设为165，低于这个值的点全部填白色
+    threshold = 150
+    table = []
+
+    for j in range(256):
+        if j < threshold:
+            table.append(0)
+        else:
+            table.append(1)
+
+    bim = lim.point(table, '1')
+    bim.save(img_path)
+    text = pytesseract.image_to_string(bim)
+    text = re.findall('\d+', text)
+    text = ''.join(text)
+    print(text)
+    return text
+
+
 # 主函数
 async def run():
+    img_path = 'C:/python/work/trademark/img/yanzhengma.png'
     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
     r = redis.Redis(connection_pool=pool)
     count = '华为技术有限公司'  # 初始申请人
-    browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='/home/wkun/Temporary')
+    browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='C:/Temporary')
     # browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='D:/Temporary')
     page1 = await browser.newPage()
     # await stealth(page)
     # await page.setViewport({'width': width, 'height': height})
     await page1.setUserAgent(generate_user_agent())
     await page1.setJavaScriptEnabled(True)
-
+    with open('C:/python/work/stealth.min.js') as f:
+        js = f.read()
+    await page1.evaluateOnNewDocument("Page.addScriptToEvaluateOnNewDocument", {
+        "source": js
+    })
     await page1.goto('http://sbj.cnipa.gov.cn/', timeout=90000)  # 打开网址，设定超时时间
     await asyncio.sleep(10)
     await (await page1.xpath('//*[@class="bscont2 bscont"]//a'))[0].click()  # 点击“商标网上查询”
@@ -54,8 +87,26 @@ async def run():
     await (await page2.xpath('//div[@class="TRS_Editor"]//img'))[0].click()  # 我接受
 
     await page2.waitForNavigation({'timeout': 50000})
+    try:
+        yanzhengma = await page2.select('#AREA > div > img')
+        await yanzhengma.screenshot({'path': 'C:/python/work/trademark/img/yanzhengma.png'})
+        text = recognize_text(img_path)
+        await page2.type('#answer', text)
+        await page2.click('#check')
+    except Exception as e:
+        print(e)
+        pass
     await page2.click('.icon_box>[src="/tmrp/images/icon2.png"]')  # 点击商标综合查询xx
     await asyncio.sleep(5)
+    try:
+        yanzhengma = await page2.select('#AREA > div > img')
+        await yanzhengma.screenshot({'path': 'C:/python/work/trademark/img/yanzhengma.png'})
+        text = recognize_text(img_path)
+        await page2.type('#answer', text)
+        await page2.click('#check')
+    except Exception as e:
+        print(e)
+        pass
     try:
         await page2.type('[name="request:hnc"]', count)  # 输入注册号
         await asyncio.sleep(2)
@@ -64,6 +115,15 @@ async def run():
         page_list = await browser.pages()
         print(page_list)
         page3 = page_list[-1]
+        try:
+            yanzhengma = await page3.select('#AREA > div > img')
+            await yanzhengma.screenshot({'path': 'C:/python/work/trademark/img/yanzhengma.png'})
+            text = recognize_text(img_path)
+            await page2.type('#answer', text)
+            await page2.click('#check')
+        except Exception as e:
+            print(e)
+            pass
         while True:
             item = dict()
             await page3.waitForXPath('//tr[@class="ng-scope"]/td', timeout=90000)

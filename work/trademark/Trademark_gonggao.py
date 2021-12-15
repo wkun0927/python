@@ -36,8 +36,7 @@ def get_proxies():
 async def run():
     pool = redis.ConnectionPool(host='127.0.0.1', port=6379, db=0)
     r = redis.Redis(connection_pool=pool)
-    count = '华为技术有限公司'  # 初始申请人
-    browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='/home/wkun/Temporary')
+    browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='C:/Temporary')
     # browser = await launch(headless=False, args=['--disable-infobars', '--no-sandbox'], userDataDir='D:/Temporary')
     page1 = await browser.newPage()
     # await stealth(page)

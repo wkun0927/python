@@ -69,7 +69,7 @@ def main():
     x = iframe_ele.location['x']
     y = iframe_ele.location['y']
 
-    iframe = driver.find_element_by_xpath('/html/body/div[4]/div[2]/iframe')
+    iframe = driver.find_element_by_xpath('//div[4]/div[2]/iframe')
     driver.switch_to.frame(iframe)
     # WebDriverWait(driver, 10).until(lambda x: x.find_element_by_xpath('//*[@id="nsrsbhmc"]'))
     time.sleep(5)
@@ -126,4 +126,5 @@ def main():
     driver.quit()
 
 
-main()
+if __name__ == "__main__":
+    main()
