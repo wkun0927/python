@@ -9,8 +9,9 @@
 
 import time
 
-timestamp = 1630048153
+timestamp = 1647504358
 dateArray = time.localtime(timestamp)
 otherStyleTime = time.strftime('%Y-%m-%d %H:%M:%S', dateArray)
 
-print(int(time.time()) * 1000)
+print(int(time.time()))
+print(otherStyleTime)
